@@ -1,0 +1,112 @@
+\documentclass[a4paper,14pt,href]{article}
+
+% Используем нестандартный размер шрифта
+\usepackage{extsizes}
+
+% Делаем отступ для первого параграфа
+\usepackage{indentfirst}
+
+% Для поддержки поиска по pdf документу
+\usepackage{cmap}
+
+% Поддержка кириллицы
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+% Поддержка списков
+\usepackage{enumerate}
+
+% Заменяем библиографию с квадратных скобок на точку
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.}
+\makeatother
+
+% Графический пакет
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{tikz}
+
+% Математические шрифты AMS
+\usepackage{amstext, amssymb, amsmath}
+
+% В заголовках появляется точка, но при ссылке на них ее нет
+\usepackage{misccorr}
+
+% Поддержка гиперссылок
+\usepackage{url}
+
+% Задаем полуторный межстрочный интервал
+\linespread{1.3}
+
+% Задаем глубину оглавления
+\setcounter{tocdepth}{2}
+
+% Путь к изображениям, по умолчанию
+\graphicspath{{images/}}
+
+% Задаем отступ абзаца
+\setlength{\parindent}{1.25cm}
+
+\renewcommand{\labelenumi}{\arabic{enumi}.}% Меняем везде перечисления на цифра.цифра
+
+% Меняем поля страницы
+\usepackage{geometry}
+\geometry{left=2.5cm}   % левое поле
+\geometry{right=2.5cm}  % правое поле
+\geometry{top=2.5cm}    % верхнее поле
+\geometry{bottom=2.5cm} % нижнее поле
+
+\begin{document}
+
+
+%%%
+% Титульный лист
+%%%
+\thispagestyle{empty}
+\begin{center}
+Федеральное государственное автономное образовательное учреждение \\
+высшего профессионального образования \\
+\textsc{<<Южный Федеральный Университет>>}\\[1.0cm]
+
+Факультет математики, механики и компьютерных наук\\[1.0cm]
+
+Направление подготовки 010501 \\
+<<Прикладная математика и информатика>>\\[3cm]
+
+А. А. Тактаров \\[1.0cm]
+\textsc{Реактивный фреймворк для организациии мультиагентных распределенных вычислений}\\[1.0cm]
+
+\textit{Магистерская диссертация}\\[2.0cm]
+
+\begin{flushright}
+    Научный руководитель: \\
+    старший преподаватель, к.т.н. \\
+    В. Н. Брагилевский \\[1.0cm]
+
+    Рецензент: \\
+    доцент, к.ф.-м.н.\\
+    С. А. Гуда
+\end{flushright}
+
+\vfill
+
+  Ростов-на-Дону\\
+  2014
+\end{center}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section*{Введение}
+Привет, диплом!
+
+
+\newpage
+\addcontentsline{toc}{section}{Список литературы}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography/sources}
+
+\end{document}
