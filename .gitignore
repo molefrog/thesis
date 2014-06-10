@@ -1,5 +1,6 @@
 # Created by http://www.gitignore.io
 
+.DS_Store
 ### LaTeX ###
 *.acn
 *.acr
