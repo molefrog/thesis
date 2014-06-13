@@ -415,14 +415,47 @@ Procedure Call) благодаря механизму подтверждений
 код модуля доступен в виде открытого репозитория и снабжен документацией\cite{Cupsidity}.
 
 \subsubsection{Высокоуровневый класс-обертка}
+К сожалению, CUPS не предоставляет интерфейса, с помощью которого можно получать асинхронные события по изменению
+статуса заданий печати, что противоречит принципу реактивности, указанному среди требований к разрабатываемой системе.
+Единственным способом, с помощью которому возможно узнать, было ли завершено конкретное задание, является периодический
+вызов функции \texttt{cupsGetJobs}.
 
 \begin{figure}[htbp]
 \begin{center}
   \includegraphics[scale=0.8]{printer-class.pdf}
-    \caption{Класс Printer}
+    \caption{Класс-обертка Printer}
     \label{fig:PrinterClass}
 \end{center}
 \end{figure}
+
+Для предоставления асинхронного интерфейса для печати файлов был разработан класс-обертка \texttt{Printer} (рис.
+\ref{fig:PrinterClass}). Конструктор класса принимает параметр \texttt{destination}, являющийся названием
+принтера-получателя.
+
+
+\begin{lstlisting}[caption=Печать файла с помощью класса \texttt{Printer}, label=lst:deferred]
+  # Получаем доступ к принтеру
+  printer = new Printer config.get "printer:name"
+
+  # Печать файла
+  printer.print(filename, config.get "printer:options")
+  .then ->
+    log.info "Job successfully printed"
+    done null
+  .fail (err) ->
+    log.warn "Printing error: #{err}"
+    done "Printing error"
+\end{lstlisting}
+
+
+Печать заданного файла осуществляется посредством вызова функции \texttt{print}, принимающей путь к печатаемому файлу и
+необходимые параметры печати. Данная функция возвращает объект \texttt{Deferred}, который является одним из асинхронных
+примитивов, входящих в состав библиотеки Q\cite{QLibrary}. \texttt{Deferred} --- это представление завершенности отложенной
+асинхронной операции, которое может находиться в следующих состояниях: ожидается (англ. \textit{pending}),
+завершено (англ. \textit{resolved}), завершено с ошибкой (англ. \textit{rejected}). Пример вызова функции \texttt{print}
+и обработка состояний объекта \texttt{Deferred} представлены в листинге \ref{lst:deferred}.
+
+
 
 \newpage
 \section*{Заключение}
