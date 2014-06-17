@@ -1,0 +1,124 @@
+\documentclass[utf-8]{beamer}
+
+% Делаем русский язык
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+% Путь к изображениям, по умолчанию
+\graphicspath{{../images/}}
+
+% Настройки настройка титульного листа
+\usetheme{CambridgeUS}
+
+\title[Организация мультиагентных распределенных вычислений]{Реактивный фреймворк для организации мультиагентных распределенных вычислений}
+\author[Тактаров~А.~А.]
+{
+  А.~А.~Тактаров \\[0.5cm]
+  Научные руководители: \\
+  ст.~преп.~В.~Н.~Брагилевский\\
+  доц., к.ф.-м.н. В. А. Савельев\\[0.5cm]
+  \small{Направление подготовки 010400 \\ <<Прикладная математика и информатика>>}
+}
+\date{ {\footnotesize Ростов-на-Дону \\ 2014 г} }
+\usenavigationsymbolstemplate{}
+
+% Делаем красивые булиты
+\setbeamertemplate{enumerate items}[circle]
+\setbeamertemplate{itemize items}[circle]
+
+
+% Цвета
+\usepackage{xcolor}
+
+\definecolor{mintdark}{HTML}{AA1E54}
+
+\setbeamercolor{itemize item}{fg=mintdark}
+\setbeamercolor{item projected}{bg=red!60!black, fg=white}
+
+
+% Делаем красивый футер
+\makeatletter
+\defbeamertemplate*{footline}{my theme}{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}%
+        \insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+}
+\makeatother
+
+% Картинки
+\newcommand{\slidegraphics}[1]{
+\begin{center}
+ \includegraphics[width=10cm,height=7cm,keepaspectratio]{../images/#1}
+\end{center}}
+
+\newcommand{\smallgrpahics}[1]{
+\begin{center}
+ \includegraphics[width=5cm,height=3cm,keepaspectratio]{../images/#1}
+\end{center}}
+
+% Убираем тень у блоков
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{blocks}[rounded]
+\makeatletter
+\pgfdeclareverticalshading[lower.bg,upper.bg]{bmb@transition}{200cm}{%
+  color(0pt)=(upper.bg); color(2pt)=(upper.bg); color(4pt)=(upper.bg)}
+\makeatother
+
+
+%%%
+% Начало документа
+%%%
+\begin{document}
+
+%%%
+% Титульный лист
+%%%
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%%%
+% Постановка задачи
+%%%
+\section{Постановка задачи}
+\begin{frame}
+  \begin{block}{Цель работы}
+    Разработать систему, позволяющую организовать моментальную печать фотографий из социальной сети, распределяя
+    задания печати среди подключенных агентов.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cхема исполнения заданий печати}
+  \slidegraphics{print-schema.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Архитектура системы}
+  \slidegraphics{architecture-simple.pdf}
+\end{frame}
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %           Список литературы         %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}
+%   \frametitle{Литература}
+
+%   \bibliographystyle{unsrt}
+%   \bibliography{../bibliography/sources}
+% \end{frame}
+
+\end{document}
