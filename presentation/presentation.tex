@@ -96,20 +96,121 @@
     Разработать систему, позволяющую организовать моментальную печать фотографий из социальной сети, распределяя
     задания печати среди подключенных агентов.
   \end{block}
+
+  \begin{block}{Задачи}
+    \begin{itemize}
+      \item Разработка архитектуры
+      \item Реализация компонентов системы
+      \item Обеcпечение интеграции и развертывания
+      \item Опытное тестирование и запуск в производство
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cхема исполнения заданий печати}
+  \frametitle{Cхема работы системы}
   \slidegraphics{print-schema.pdf}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Архитектура системы}
+%%%
+% Архитектура системы
+%%%
+\section{Архитектура}
+\begin{frame}{Архитектура системы}
   \slidegraphics{architecture-simple.pdf}
 \end{frame}
 
+%%%
+% Компоненты системы
+%%%
+\section{Компоненты системы}
+\begin{frame}{Модуль поиска фотографий}
+  \begin{itemize}
+    \item Выполняет периодический поиск фотографий посредством API сервиса \textit{Instagram}.\\[0.5cm]
+
+    \item Помещает фотографии, содержащие специальную метку, в очередь печати.
+  \end{itemize}
+\end{frame}
 
 
+\begin{frame}{Глобальная очередь печати}
+  \begin{center}
+    \includegraphics[scale=0.5]{producer-consumer-simple.pdf}
+  \end{center}
+
+  \begin{itemize}
+    \item Реализована на основе библитеки Kue
+    \item Задания сохраняются после перезапуска сервера
+    \item Компоненты, работающие с очередью, изолированы
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Подготовка к печати}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \item Загрузка фотографии в облачное хранилище Amazon S3\\[0.5cm]
+        \item Компоновка изображения с помощью \textbf{canvas}\\[0.5cm]
+        \item Вызов RPC-функции \texttt{print} печатной станции
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[scale=0.3]{photo-layout.pdf}
+      \end{center}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+
+% С++
+\def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+
+\begin{frame}{Печать в рамках печатной станции}
+    \begin{itemize}
+      \item \textbf{cupsidity} --- реализованный модуль на \CC, предоставляющий интерфейс к
+        функциям подсистемы печати CUPS в JavaScript.\\[0.5cm]
+      \item Модуль опубликован в репозитории пакетов NPM.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Мониторинг статуса задания печати}
+  \begin{center}
+        \includegraphics[scale=0.5]{printer-class-simple.pdf}
+  \end{center}
+  Класс-обертка \texttt{Printer} предосталяет высокоуровневый интерфейс печати, детектируя изменение статуса заданий
+  посредством \textbf{cupsidity}.
+\end{frame}
+
+
+\section{Интеграция}
+\begin{frame}{Особенности реализации}
+
+  \begin{block}{Контроль версий}
+    git, GitHub
+  \end{block}
+
+  \begin{block}{Непрерывная интеграция}
+    Travis CI
+  \end{block}
+
+
+  \begin{block}{Развертывание}
+    Автоматическое развертывание при исполнении команды \texttt{git push}
+  \end{block}
+
+\end{frame}
+
+
+\section{Результаты работы}
+\begin{frame}{Полученные результаты}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %           Список литературы         %
