@@ -7,3 +7,8 @@
   печатной станции
   - [cupsidity](http://github.com/molefrog/cupsidity) нативный модуль для node.js, обеспечивающий
   работу с принтером
+
+## Текст работы и презентация
+[Посмотреть текст работы](https://raw.github.com/molefrog/thesis/master/thesis.pdf)
+
+[Посмотреть презентацию](https://github.com/molefrog/thesis/raw/master/presentation/presentation.pdf)
